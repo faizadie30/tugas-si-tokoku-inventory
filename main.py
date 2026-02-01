@@ -11,9 +11,9 @@ def load_barang():
     list_barang.clear()
     conn = get_connection()
     cursor = conn.cursor()
-    cursor.execute("SELECT nama, stok, harga FROM barang")
+    cursor.execute("SELECT id, nama, stok, harga FROM barang")
     for row in cursor.fetchall():
-        list_barang.append(Barang(row[0], row[1], row[2]))
+        list_barang.append(Barang(row[0], row[1], row[2], row[3]))
     conn.close()
 
 
@@ -36,7 +36,7 @@ def lihat_barang():
     load_barang()
     print("\nDAFTAR BARANG")
     for i, b in enumerate(list_barang, start=1):
-        print(f"{i}. {b.nama} | Stok: {b.stok} | Harga: {b.harga}")
+        print(f"Ditemukan: id: {b.id} |nama barang: {b.nama} | Stok: {b.stok} | Harga: {b.harga}")
 
 
 def cari_barang():
@@ -44,7 +44,7 @@ def cari_barang():
     load_barang()
     for b in list_barang:
         if b.nama.lower() == keyword.lower():
-            print(f"Ditemukan: {b.nama} | Stok: {b.stok} | Harga: {b.harga}")
+            print(f"Ditemukan: id: {b.id} |nama barang: {b.nama} | Stok: {b.stok} | Harga: {b.harga}")
             return
     print("Barang tidak ditemukan")
 
